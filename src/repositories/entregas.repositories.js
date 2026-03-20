@@ -2,8 +2,9 @@ import { Database } from "../database/database.js"
 
 export class EntregasRepository{
     constructor(){
-        this.entregas = Database.getEntregas()
-        this.nextId = Database.generateId()
+        const db = new Database()
+        this.entregas = db.getEntregas()
+        this.nextId = db.generateId()
     }
     async listarTodos(){
         return this.entregas
@@ -18,7 +19,7 @@ export class EntregasRepository{
             status:  "CRIADA",
             historico: [{
                 data: new Date().toISOString(),
-                descricao 
+                descricao: dados.descricao 
             }]
         }
         this.entregas.push(novaEntrega)
