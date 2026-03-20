@@ -1,5 +1,5 @@
 export class EntregasController{
-    constructor(){
+    constructor(service){
         this.service = service
 
         this.listarTodos = this.listarTodos.bind(this)
