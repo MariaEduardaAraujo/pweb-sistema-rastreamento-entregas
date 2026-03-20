@@ -9,6 +9,7 @@ export class EntregasService{
     async buscarPorId(id){
         const entrega = await this.repository.buscarPorId(id)
         if (!entrega) return null
+        return entrega
     }
     async criar(dados){
         return this.repository.criar(dados)
