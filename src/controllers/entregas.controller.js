@@ -4,10 +4,10 @@ export class EntregasController{
 
         this.listarTodos = this.listarTodos.bind(this)
         this.buscarPorId = this.buscarPorId.bind(this)
-        this.criar       = this.criar.bind(this)
-        this.avancar        = this.avancar.bind(this)
-        this.cancelar       = this.cancelar.bind(this)
-        this.buscarHistorico = this.buscarHistorico.bind(this)
+        this.criar = this.criar.bind(this)
+        this.avancar = this.avancar.bind(this)
+        this.cancelar = this.cancelar.bind(this)
+        this.historico = this.historico.bind(this)
     }
     async listarTodos(req, res, next){
         try{
@@ -52,7 +52,7 @@ export class EntregasController{
     }
     async historico(req, res, next){
         try {
-            const historico = await this.service.buscarHistorico(Number(req.params.id))
+            const historico = await this.service.historico(Number(req.params.id))
             res.status(200).json(historico)
         } catch (err) {
             next(err)
