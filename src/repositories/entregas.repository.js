@@ -1,4 +1,6 @@
-export class EntregasRepository{
+import { IEntregasRepository } from "../interfaces/IEntregasRepository.js"
+
+export class EntregasRepository extends IEntregasRepository{
     constructor(database){
         this.database = database
     }
