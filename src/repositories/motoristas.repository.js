@@ -17,7 +17,7 @@ export class MotoristasRepository extends IMotoristasRepository{
     async criar(dados){
         const motorista = this.database.getMotoristas()
         const novoMotorista = {
-            id: this.database.generateId(),
+            id: this.database.generateMotoristaId(),
             ...dados,
             status: "ATIVO"
         }
