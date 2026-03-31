@@ -8,9 +8,9 @@ const TRANSICOES_VALIDAS = {
 const STATUS_FINAIS = ["ENTREGUE", "CANCELADA"]
 
 export class EntregasService{
-    constructor(repository, repository2){
-        this.repository = repository
-        this.repository2 = repository2
+    constructor(entregasRepository, motoristasRepository){
+        this.entregasRepository = entregasRepository
+        this.motoristasRepository = motoristasRepository
     }
     async listarTodos({ status } = {}){
         let entregas = await this.repository.listarTodos()
