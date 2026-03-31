@@ -219,4 +219,3 @@ curl -X PATCH http://localhost:3000/api/entregas/1/atribuir \
 ```bash
 curl http://localhost:3000/api/motoristas/1/entregas
 ```
-```
