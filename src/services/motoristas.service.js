@@ -1,11 +1,22 @@
 import { AppError } from "../utils/AppError.js"
 
 export class MotoristasService{
-    constructor(repository){
+    constructor(repository, entregasRepository){
         this.repository = repository
+        this.entregasRepository = entregasRepository
     }
     async listarTodos(){
         return this.repository.listarTodos()
+    }
+    async listarEntregas(id, { status } = {}){
+        await this.buscarPorId(id)
+        let entregas = await this.entregasRepository.listarTodos()
+
+        entregas = entregas.filter((e) => e.motoristaId === id)
+        if (status) {
+            entregas = entregas.filter((e) => e.status === status)
+        }
+        return entregas
     }
     async buscarPorId(id){
         const motorista = await this.repository.buscarPorId(id)
