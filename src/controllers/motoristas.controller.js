@@ -7,11 +7,20 @@ export class MotoristasController{
         this.buscarPorCPF = this.buscarPorCPF.bind(this)
         this.criar = this.criar.bind(this)
         this.atualizar = this.atualizar.bind(this)
+        this.listarEntregas = this.listarEntregas.bind(this)
     }
     async listarTodos(req, res, next){
         try {
             const motoristas = await this.service.listarTodos()
             res.status(200).json(motoristas)
+        } catch (err) {
+            next(err)
+        }
+    }
+    async listarEntregas(req, res, next){
+        try {
+            const entregas = await this.service.listarEntregas(Number(req.params.id), req.query)
+            res.status(200).json(entregas)
         } catch (err) {
             next(err)
         }
