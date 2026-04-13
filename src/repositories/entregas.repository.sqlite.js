@@ -12,37 +12,57 @@ export class EntregasRepository extends IEntregasRepository{
         ).all()
     }
     buscarPorId(id){
-        return this.database.prepare(
+        const entrega = this.database.prepare(
             "SELECT * FROM TAB_ENTREGAS WHERE id = ?"
         ).get(id) ?? null
+
+        if (!entrega) return null
+
+        const historico = this.database.prepare(
+            "SELECT descricao, data_entrega as data FROM TAB_EVENTO_ENTREGA WHERE id_entrega = ? ORDER BY data_entrega ASC"
+        ).all(id)
+
+        return { ...entrega, historico }
     }
     criar(dados){
         const stmt = this.database.prepare(
-            "INSERT INTO TAB_ENTREGAS (descricao, origem, destino, id_motorista) VALUES (?, ?, ?, ?)"
+            "INSERT INTO TAB_ENTREGAS (descricao, origem, destino) VALUES (?, ?, ?)"
         )
 
         const info = stmt.run(
             dados.descricao,
             dados.origem,
-            dados.destino,
-            dados.id_motorista ?? null
-        )
-
-        return this.buscarPorId(info.lastInsertRowid)
-    }
-    atualizar(id, dados){
-        const stmt = this.database.prepare(
-            "UPDATE TAB_ENTREGAS SET descricao = ?, origem = ?, destino = ? WHERE id = ?"
+            dados.destino
         )
         
-        const info = stmt.run(
-            dados.descricao,
-            dados.origem,
-            dados.destino,
-            id
-        )
+        const id = info.lastInsertRowid
 
-        if (info.changes === 0) return null
+        this.database.prepare(
+            "INSERT INTO TAB_EVENTO_ENTREGA (id_entrega, descricao) VALUES (?, ?)"
+        ).run(id, "Entrega criada")
+
+        return this.buscarPorId(id)
+    }
+    atualizar(id, dados) {
+        if (dados.status) {
+            this.database.prepare(
+                "UPDATE TAB_ENTREGAS SET status = ? WHERE id = ?"
+            ).run(dados.status, id)
+        }
+
+        if (dados.motoristaId) {
+            this.database.prepare(
+                "UPDATE TAB_ENTREGAS SET id_motorista = ? WHERE id = ?"
+            ).run(dados.motoristaId, id)
+        }
+
+        if (dados.historico) {
+            const ultimo = dados.historico[dados.historico.length - 1]
+            this.database.prepare(
+                "INSERT INTO TAB_EVENTO_ENTREGA (id_entrega, descricao) VALUES (?, ?)"
+            ).run(id, ultimo.descricao)
+        }
+
         return this.buscarPorId(id)
     }
 }
