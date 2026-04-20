@@ -24,7 +24,7 @@ export class EntregasService{
         if (origem === destino){
             throw new AppError("Origem e Destino não podem ser iguais", 400); 
         }
-        const todas = await this.entregasRepository.listarTodos()
+        const { data: todas } = await this.entregasRepository.listarTodos({ page: 1, limit: 9999 })
         const duplicadas = todas.find((e) => e.descricao === descricao && e.origem === origem && e.destino == destino && !STATUS_FINAIS.includes(e.status))
 
         if(duplicadas){
@@ -43,14 +43,11 @@ export class EntregasService{
         if(!proximo){
             throw new AppError("Transição inválida", 400)
         }
-        const novoHistorico = [
-            ...entrega.historico,
-            {
-                data: new Date().toISOString(),
-                descricao: `Status avançado para ${proximo}`
-            }
-        ]
-        return this.entregasRepository.atualizar(id, { status: proximo, historico: novoHistorico })
+
+        return this.entregasRepository.atualizar(id, { 
+            status: proximo, 
+            historico: `Status avançado para ${proximo}`
+        })
     }
     async cancelar(id){
         const entrega = await this.buscarPorId(id)
@@ -61,18 +58,14 @@ export class EntregasService{
             throw new AppError("Entrega já cancelada", 400);
         }
 
-        const novoHistorico = [
-            ...entrega.historico,
-            {
-                data: new Date().toISOString(),
-                descricao: "Entrega cancelada"
-            }
-        ]
-        return this.entregasRepository.atualizar(id, { status: "CANCELADA", historico: novoHistorico })
+        return this.entregasRepository.atualizar(id, { 
+            status: "CANCELADA", 
+            historico: "Entrega cancelada"
+        })
     }
     async historico(id){
         const entrega = await this.buscarPorId(id)
-        return entrega.historico
+        return entrega.eventos
     }
     async atribuir(id, motoristaId){
         const entrega = await this.entregasRepository.buscarPorId(id)
@@ -83,14 +76,9 @@ export class EntregasService{
         if (!motorista) throw new AppError("Esse motorista não existe", 404);
         if (motorista.status != "ATIVO") throw new AppError("O status do motorista está inativo", 422);
         
-        const novoHistorico = [
-            ...entrega.historico,
-            {
-                data: new Date().toISOString(),
-                descricao: `Motorista ${motorista.nome} atribuído à entrega`,
-                motoristaId: motoristaId
-            }
-        ]
-        return this.entregasRepository.atualizar(id, { motoristaId: motoristaId, historico: novoHistorico})
+        return this.entregasRepository.atualizar(id, {
+            motoristaId: motoristaId,
+            historico: `Motorista ${motorista.nome} atribuído à entrega`
+        })
     }
 }
