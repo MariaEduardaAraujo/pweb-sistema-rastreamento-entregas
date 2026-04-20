@@ -12,13 +12,8 @@ export class EntregasService{
         this.entregasRepository = entregasRepository
         this.motoristasRepository = motoristasRepository
     }
-    async listarTodos({ status } = {}){
-        let entregas = await this.entregasRepository.listarTodos()
-        
-        if(status){
-            entregas = entregas.filter((e) => e.status === status)
-        }
-        return entregas
+    async listarTodos({ status, motoristaId, createdDe, createdAte, page, limit } = {}){
+        return this.entregasRepository.listarTodos({ status, motoristaId, createdDe, createdAte, page, limit })
     }
     async buscarPorId(id){
         const entrega = await this.entregasRepository.buscarPorId(id)
