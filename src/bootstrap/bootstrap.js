@@ -8,6 +8,8 @@ import { MotoristasController } from "../controllers/motoristas.controller.js"
 import { RelatoriosRepository} from "../repositories/relatorios.repository.sqlite.js"
 import { RelatoriosService } from "../services/relatorios.service.js"
 import { RelatoriosController } from "../controllers/relatorios.controller.js"
+import { EntregasController as PainelEntregasController } from "../controllers/painel/entregas.controller.js"
+import { MotoristasController as PainelMotoristasController } from "../controllers/painel/motoristas.controller.js"
 
 const entregasRepository = new EntregasRepository(database)
 const motoristasRepository = new MotoristasRepository(database)
@@ -19,4 +21,7 @@ const entregasController = new EntregasController(entregasService)
 const motoristasController = new MotoristasController(motoristasService)
 const relatoriosController = new RelatoriosController(relatoriosService)
 
-export { entregasController, motoristasController, relatoriosController }
+const painelEntregasController = new PainelEntregasController(entregasService, motoristasService)
+const painelMotoristasController = new PainelMotoristasController(motoristasService)
+
+export { entregasController, motoristasController, relatoriosController, painelEntregasController, painelMotoristasController }
