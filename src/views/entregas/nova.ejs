@@ -1,0 +1,32 @@
+<h1>Nova Entrega</h1>
+
+<div class="criarNovaEntrega">
+  <form method="POST" action="/painel/entregas">
+
+    <label>Descrição</label>
+    <input type="text" name="descricao" value="<%= old.descricao ?? '' %>">
+    <% if(erros.descricao) { %><span class="erro"><%= erros.descricao %></span><% } %>
+
+    <label>Origem</label>
+    <input type="text" name="origem" value="<%= old.origem ?? '' %>">
+    <% if(erros.origem) { %><span class="erro"><%= erros.origem %></span><% } %>
+
+    <label>Destino</label>
+    <input type="text" name="destino" value="<%= old.destino ?? '' %>">
+    <% if(erros.destino) { %><span class="erro"><%= erros.destino %></span><% } %>
+
+    <label>Motorista</label>
+    <select id="selectNova" name="motoristaId">
+      <option value="">Sem motorista</option>
+      <% motoristas.forEach(m => { %>
+        <option value="<%= m.id %>" <%= old.motoristaId == m.id ? 'selected' : '' %>>
+          <%= m.nome %>
+        </option>
+      <% }) %>
+    </select>
+
+    <button id="botaoNovaEntrega" type="submit">Criar Entrega</button>
+    <a href="/painel/entregas">Cancelar</a>
+  
+  </form>
+</div>

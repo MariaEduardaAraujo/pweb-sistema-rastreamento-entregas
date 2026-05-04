@@ -1,0 +1,19 @@
+<h1>Novo Motorista</h1>
+
+<form method="POST" action="/painel/motoristas">
+
+  <label>Nome</label>
+  <input type="text" name="nome" value="<%= old.nome ?? '' %>">
+  <% if(erros.nome) { %><span class="erro"><%= erros.nome %></span><% } %>
+
+  <label>CPF</label>
+  <input type="text" name="cpf" value="<%= old.cpf ?? '' %>">
+  <% if(erros.cpf) { %><span class="erro"><%= erros.cpf %></span><% } %>
+
+  <label>Placa</label>
+  <input type="text" name="placaVeiculo" value="<%= old.placaVeiculo ?? '' %>">
+  <% if(erros.placaVeiculo) { %><span class="erro"><%= erros.placaVeiculo %></span><% } %>
+
+  <button id="botaoNovoMotorista" type="submit">Cadastrar</button>
+  <a href="/painel/motoristas">Cancelar</a>
+</form>

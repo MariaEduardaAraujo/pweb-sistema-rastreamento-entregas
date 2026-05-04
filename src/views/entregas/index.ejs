@@ -1,0 +1,40 @@
+<div class="novaEntrega">
+  <form method="GET" action="/painel/entregas">
+    <select id="selectIndex" name="status">
+      <option value="">Todos</option>
+      <option value="CRIADA">Criada</option>
+      <option value="EM_TRANSITO">Em Trânsito</option>
+      <option value="ENTREGUE">Entregue</option>
+      <option value="CANCELADA">Cancelada</option>
+    </select>
+    <button id="botaoFiltrar" type="submit">Filtrar</button>
+  </form>
+  <a id="textoNovaEntrega" href="/painel/entregas/nova">Nova Entrega</a>
+</div>
+<table>
+  <thead>
+  <tr>
+    <th>Descrição</th><th>Origem</th><th>Destino</th><th>Status</th><th>Motorista</th><th>Data</th>
+  </tr>
+  </thead>
+    <tbody>
+      <% entregas.forEach(entrega => { %>
+        <tr>
+          <td><a href="/painel/entregas/<%= entrega.id %>"><%= entrega.descricao %></a></td>
+          <td><%= entrega.origem %></td>
+          <td><%= entrega.destino %></td>
+          <td><span class="badge badge-<%= entrega.status.toUpperCase() %>"><%= entrega.status %></span></td>
+          <td><%= entrega.motorista?.nome ?? 'Sem motorista' %></td>
+          <td><%= new Date(entrega.createdAt) %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% if(paginaAtual > 1) { %>
+    <a id= "anterior" href="?page=<%= paginaAtual - 1 %>&status=<%= statusFiltro %>">Anterior</a>
+  <% } %>
+  <% if(paginaAtual < totalPages) { %>
+    <a id="proximo" href="?page=<%= paginaAtual + 1 %>&status=<%= statusFiltro %>">Próximo</a>
+  <% } %>
+</body>
+</html>

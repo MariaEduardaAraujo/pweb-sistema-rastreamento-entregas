@@ -1,0 +1,34 @@
+<h1>Entrega #<%= entrega.id %></h1>
+
+<p>Descrição: <%= entrega.descricao %></p>
+<p>Origem: <%= entrega.origem %></p>
+<p>Destino: <%= entrega.destino %></p>
+<p>Status: <span class="badge badge-<%= entrega.status.toUpperCase() %>"><%= entrega.status %></span></p>
+<p>Motorista: <%= entrega.motorista?.nome ?? 'Sem motorista' %></p>
+
+<h2>Histórico de Eventos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th><th>Hora</th><th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% entrega.eventos.forEach(evento => { %>
+      <tr>
+        <td><%= new Date(evento.criadoEm).toLocaleDateString('pt-BR') %></td>
+        <td><%= new Date(evento.criadoEm).toLocaleTimeString('pt-BR') %></td>
+        <td><%= evento.descricao %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<form method="POST" action="/painel/entregas/<%= entrega.id %>/status?_method=PUT">
+  <button type="submit">Avançar Status</button>
+</form>
+
+<form method="POST" action="/painel/entregas/<%= entrega.id %>/cancelar?_method=DELETE">
+  <button type="submit">Cancelar Entrega</button>
+</form>

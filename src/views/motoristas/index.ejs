@@ -1,0 +1,22 @@
+<div class="novoMotorista">
+  <span></span>
+  <a id="textoNovoMotorista" href="/painel/motoristas/novo">Novo Motorista</a>
+</div>
+
+<table id="tabelaMotoristas">
+  <thead>
+    <tr>
+      <th>Nome</th><th>CPF</th><th>Placa</th><th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% motoristas.forEach(m => { %>
+      <tr>
+        <td><%= m.nome %></td>
+        <td><%= m.cpf %></td>
+        <td><%= m.placaVeiculo %></td>
+        <td><span class="badge badge-<%= m.status.toUpperCase() %>"><%= m.status %></span></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
