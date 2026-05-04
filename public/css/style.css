@@ -1,0 +1,137 @@
+.navbar {
+    display: flex;
+    font-size: 18px;
+    padding: 10px 20px;
+    align-items: center;
+    flex-direction: column;
+}
+.navbar-brand {
+    color: #000;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+.navbar-links {
+    gap: 2px;
+    display: flex;
+    list-style: none;
+    margin: 8px 0 0 0;
+    padding-left: 12px;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+a:hover {
+    color: blue;
+    
+}
+li {
+  margin-right: 15px;
+  display: inline-block;
+}
+.container {
+    gap: 2px;
+    display: grid;
+    width: fix-content;
+    border-radius: 5px;
+    height: fix-content;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+.div1 {
+    padding: 16px;
+    grid-column: span 5 / span 3;
+    grid-row: span 5 / span 5;
+    grid-column-start: 2;
+}
+.novaEntrega {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+#selectIndex {
+    padding: 3px;
+    width: 130px;
+}
+#botaoFiltrar {
+    padding: 3px;
+}
+#textoNovaEntrega {
+    font-size: 17px;
+    font-weight: bolder;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+}
+th {
+    background-color: #f0f0f0;
+}
+#anterior {
+    padding: 5px;
+    display: flex;
+    font-size: 17px;
+    margin-top: 5px;
+    font-weight: bolder;
+}
+#proximo {
+    padding: 5px;
+    display: flex;
+    font-size: 17px;
+    margin-top: 5px;
+    font-weight: bolder;
+    justify-content: end;
+}
+.criarNovaEntrega {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px; 
+}
+label {
+    font-weight: bold;
+}
+input, #selectNova {
+    padding: 6px;
+    width: 100%;
+}
+#botaoNovaEntrega {
+    padding: 3px;
+    margin-top: 13px;
+}
+.novoMotorista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+#textoNovoMotorista {
+    font-size: 17px;
+    font-weight: bolder;
+}
+#tabelaMotoristas{
+    margin-bottom: 12px;
+}
+#botaoNovoMotorista {
+    padding: 3px;
+    margin-top: 13px;
+}
+.alert {
+    padding: 10px;
+    font-size: 18px;
+    max-width: 400px;
+    margin: 10px auto;
+    text-align: center;
+}
+.footer {
+    font-size: 18px;
+    margin-top: -30px;
+    text-align: center;
+}
