@@ -2,10 +2,10 @@
   <form method="GET" action="/painel/entregas">
     <select id="selectIndex" name="status">
       <option value="">Todos</option>
-      <option value="CRIADA">Criada</option>
-      <option value="EM_TRANSITO">Em Trânsito</option>
-      <option value="ENTREGUE">Entregue</option>
-      <option value="CANCELADA">Cancelada</option>
+      <option value="CRIADA" <%= statusFiltro === 'CRIADA' ? 'selected' : '' %>>Criada</option>
+      <option value="EM_TRANSITO" <%= statusFiltro === 'EM_TRANSITO' ? 'selected' : '' %>>Em Trânsito</option>
+      <option value="ENTREGUE" <%= statusFiltro === 'ENTREGUE' ? 'selected' : '' %>>Entregue</option>
+      <option value="CANCELADA" <%= statusFiltro === 'CANCELADA' ? 'selected' : '' %>>Cancelada</option>
     </select>
     <button id="botaoFiltrar" type="submit">Filtrar</button>
   </form>
