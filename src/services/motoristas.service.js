@@ -29,11 +29,11 @@ export class MotoristasService{
         return motorista   
     }
     async criar({ nome, cpf, placaVeiculo }){
-        const motoristas = await this.repository.listarTodos()
+        const resultado = await this.repository.listarTodos()
+        const motoristas = resultado.data ?? resultado
         const cpfDuplicado = motoristas.find((m) => m.cpf === cpf)
         if(cpfDuplicado){
-            throw new AppError("CPF duplicado", 409);
-                
+            throw new AppError("CPF duplicado", 409)
         }
         return this.repository.criar({ nome, cpf, placaVeiculo })
     }
