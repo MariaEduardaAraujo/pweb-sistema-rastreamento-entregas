@@ -36,6 +36,9 @@ export class EntregasService{
     async avancar(id){
         const entrega = await this.buscarPorId(id)
 
+        if (!entrega.motoristaId){
+            throw new AppError("Atribua um motorista antes de avançar", 400)
+        }
         if(STATUS_FINAIS.includes(entrega.status)){
             throw new AppError(`Não é possível avançar uma entrega com status ${entrega.status}`, 400);
         }
