@@ -32,8 +32,11 @@ export class MotoristasController {
       req.flash('sucesso', 'Motorista criado com sucesso')
       res.redirect('/painel/motoristas')
     } catch (err) {
-      res.flash('erro', err.message)
-      res.render('motoristas/novo', { old: req.body, erros: err.erros ?? { geral: err.message } });
+      res.render('motoristas/novo', { 
+        old: req.body, 
+        erros: err.erros ?? { geral: err.mensagem },
+        flashErro: err.message
+      })
     }
   }
 }
