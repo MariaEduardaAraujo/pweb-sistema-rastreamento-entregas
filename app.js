@@ -1,10 +1,11 @@
 import express from "express"
-import entregasRouter from "./src/routes/entregas.routes.js"
+import flash from 'connect-flash'
 import { fileURLToPath } from 'url'
 import { dirname, join }  from 'path'
 import session from 'express-session'
-import flash from 'connect-flash'
+import methodOverride from 'method-override'
 import expressLayouts from 'express-ejs-layouts'
+import entregasRouter from "./src/routes/entregas.routes.js"
 import motoristasRouter from "./src/routes/motoristas.routes.js"
 import relatoriosRouter from "./src/routes/relatorios.routes.js"
 import painelRouter from "./src/routes/painel.routes.js"
@@ -19,10 +20,18 @@ app.set('views', join(__dirname, 'src/views'))
 app.set('layout', 'layouts/base')
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    const method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 app.use(express.json())
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
-app.use(expressLayouts);
+app.use(expressLayouts)
 app.use(express.static(join(__dirname, 'public')))
 
 app.use((req, res, next) => {
