@@ -54,7 +54,7 @@ export class EntregasController{
     }
     async avancarStatus(req, res) {
         try {
-            await this.service.avancarStatus(req.params.id)
+            await this.service.avancar(Number(req.params.id))
             req.flash('sucesso', 'Status atualizado')
             res.redirect(`/painel/entregas/${req.params.id}`)
         } catch(err) {
