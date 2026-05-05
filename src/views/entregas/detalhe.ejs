@@ -1,10 +1,12 @@
 <h1>Entrega #<%= entrega.id %></h1>
 
-<p>Descrição: <%= entrega.descricao %></p>
-<p>Origem: <%= entrega.origem %></p>
-<p>Destino: <%= entrega.destino %></p>
-<p>Status: <span class="badge badge-<%= entrega.status.toUpperCase() %>"><%= entrega.status %></span></p>
-<p>Motorista: <%= entrega.motorista?.nome ?? 'Sem motorista' %></p>
+<div class="detalhesEntrega">
+  <p>Descrição: <%= entrega.descricao %></p>
+  <p>Origem: <%= entrega.origem %></p>
+  <p>Destino: <%= entrega.destino %></p>
+  <p>Status: <span class="badge badge-<%= entrega.status.toUpperCase() %>"><%= entrega.status %></span></p>
+  <p>Motorista: <%= entrega.motorista?.nome ?? 'Sem motorista' %></p>
+</div>
 
 <h2>Histórico de Eventos</h2>
 
@@ -17,18 +19,22 @@
   <tbody>
     <% entrega.eventos.forEach(evento => { %>
       <tr>
-        <td><%= new Date(evento.criadoEm).toLocaleDateString('pt-BR') %></td>
-        <td><%= new Date(evento.criadoEm).toLocaleTimeString('pt-BR') %></td>
+        <td><%= new Date(evento.createdAt).toLocaleDateString('pt-BR') %></td>
+        <td><%= new Date(evento.createdAt).toLocaleTimeString('pt-BR') %></td>
         <td><%= evento.descricao %></td>
       </tr>
     <% }) %>
   </tbody>
 </table>
 
-<form method="POST" action="/painel/entregas/<%= entrega.id %>/status?_method=PUT">
-  <button type="submit">Avançar Status</button>
-</form>
+<div class="botoesDetalhes">
+  <form id="botaoDetalhesAvancar" method="POST" action="/painel/entregas/<%= entrega.id %>/status">
+    <input type="hidden" name="_method" value="PUT">
+    <button type="submit">Avançar Status</button>
+  </form>
 
-<form method="POST" action="/painel/entregas/<%= entrega.id %>/cancelar?_method=DELETE">
-  <button type="submit">Cancelar Entrega</button>
-</form>
+  <form id="botaoDetalhesCancelar" method="POST" action="/painel/entregas/<%= entrega.id %>/cancelar">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Cancelar Entrega</button>
+  </form>
+</div>
