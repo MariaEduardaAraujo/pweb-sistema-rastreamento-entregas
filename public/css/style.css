@@ -74,6 +74,22 @@ th, td {
 th {
     background-color: #f0f0f0;
 }
+.badge-CRIADA {
+    color: #3498db;
+    padding: 3px 8px;
+}
+.badge-EM_TRANSITO {
+    color: #f39c12;
+    padding: 3px 8px;
+}
+.badge-ENTREGUE {
+    color: #2ecc71;
+    padding: 3px 8px;
+}
+.badge-CANCELADA {
+    color: #e74c3c;
+    padding: 3px 8px;
+}
 #anterior {
     padding: 5px;
     display: flex;
@@ -137,11 +153,18 @@ input, #selectNova {
     margin-top: 13px;
 }
 .alert {
-    padding: 10px;
-    font-size: 18px;
-    max-width: 400px;
-    margin: 10px auto;
+    padding: 3px;
+    font-size: 17px;
+    max-width: auto;
+    margin: 5px auto;
     text-align: center;
+    font-weight: bolder;
+}
+.alert.alert-erro {
+    color: #e74c3c;
+}
+.alert.alert-sucesso {
+    color: #2ecc71;
 }
 .footer {
     font-size: 18px;
