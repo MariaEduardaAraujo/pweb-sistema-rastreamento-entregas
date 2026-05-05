@@ -39,8 +39,13 @@ export class EntregasController{
             req.flash('sucesso', 'Entrega criada com sucesso')
             res.redirect('/painel/entregas')
         } catch (err) {
-            const motoristas = await this.motoristaService.listarTodos()
-            res.render('entregas/nova', { old: req.body, erros: err.erros ?? { geral: err.message }, motoristas })
+            const resultado = await this.motoristaService.listarTodos()
+            const motoristas = resultado.data ?? resultado
+            res.render('entregas/nova', { 
+                old: req.body, 
+                erros: err.erros ?? { geral: err.mensagem ?? err.message }, 
+                motoristas 
+            })
         }
     }
     async detalhe(req, res){
@@ -48,7 +53,7 @@ export class EntregasController{
             const entrega = await this.service.buscarPorId(Number(req.params.id))
             res.render('entregas/detalhe', { entrega })
         }catch (err){
-            req.flash('erro', err.message)
+            req.flash('erro', err.messagem ?? err.message)
             res.redirect('/painel/entregas')
         }
     }
@@ -56,20 +61,20 @@ export class EntregasController{
         try {
             await this.service.avancar(Number(req.params.id))
             req.flash('sucesso', 'Status atualizado')
-            res.redirect(`/painel/entregas/${req.params.id}`)
+            res.redirect(`/painel/entregas/${Number(req.params.id)}`)
         } catch(err) {
-            req.flash('erro', err.message);
-            res.redirect(`/painel/entregas/${req.params.id}`)
+            req.flash('erro', err.mensagem ?? err.message)
+            res.redirect(`/painel/entregas/${Number(req.params.id)}`)
         }
     }
     async cancelar(req, res) {
         try {
-            await this.service.cancelar(req.params.id)
+            await this.service.cancelar(Number(req.params.id))
             req.flash('sucesso', 'Entrega cancelada')
             res.redirect('/painel/entregas')
         } catch(err) {
-            req.flash('erro', err.message)
-            res.redirect(`/painel/entregas/${req.params.id}`)
+            req.flash('erro', err.messagem ?? err.message)
+            res.redirect(`/painel/entregas/${Number(req.params.id)}`)
         }
     }
 }
