@@ -106,6 +106,19 @@ input, #selectNova {
     padding: 3px;
     margin-top: 13px;
 }
+.detalhesEntrega {
+    font-size: 17px;
+}
+.botoesDetalhes {
+    gap: 15px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 13px;
+}
+#botaoDetalhesAvancar button,
+#botaoDetalhesCancelar button {
+    padding: 6px 12px;
+}
 .novoMotorista {
     display: flex;
     justify-content: space-between;
